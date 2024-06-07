@@ -124,41 +124,7 @@ fig.update_layout(xaxis_title='Year', yaxis_title='Attendance')
 fig.add_annotation(x=2020, y=0, text="Covid-19 Pandemic", showarrow=True, arrowhead=2, bgcolor="red", font=dict(color="white"), bordercolor="red", borderwidth=2, borderpad=2, arrowcolor="red", ax=-90, ay=-10)
 st.plotly_chart(fig)
 
-
-# Mean Attendance per Decade
-#bins = [1960, 1970, 1980, 1990, 2000, 2010, 2020, 2030]
-#labels = ['1960s', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s']
-#finals['decade'] = pd.cut(finals['year'], bins=bins, labels=labels, right=False)
-#mean_attendance_per_decade = finals.groupby('decade')['attendance'].mean().reset_index()
-#heatmap_data = mean_attendance_per_decade.set_index('decade').T
-
-# Mean Attendance per Decade
-#st.subheader("Mean Attendance per Decade")
-#fig, ax = plt.subplots(figsize=(10, 2))
-#sns.heatmap(heatmap_data, annot=True, fmt=".3f", cmap="YlGnBu", cbar=True, cbar_kws={'orientation': 'horizontal'}, ax=ax)
-#ax.set_title('Mean Attendance per Decade')
-#ax.set_xlabel('Decade')
-#ax.set_ylabel('')
-#st.pyplot(fig)
-
-# Same Country Influence on Attendance
-#finals['same_country'] = finals.apply(lambda row: 1 if row['country_winners'] in row['venue'] or row['country_runners_up'] in row['venue'] else 0, axis=1)
-#st.subheader("Attendance by Same Country")
-#fig.update_layout(xaxis_title='Same Country', yaxis_title='Attendance')
-#st.plotly_chart(fig)
-
-# Hypothesis Test
-#attendance_same_country = finals[finals['same_country'] == 1]['attendance']
-#attendance_different_country = finals[finals['same_country'] == 0]['attendance']
-#st.write(f'T-statistic: {t_stat:.3f}')
-#st.write(f'P-value: {p_value:.3f}')
-
-# Mean Attendance by Country Venue
-#other_country = finals[finals['same_country'] == 0]
-#other_country['country_venue'] = other_country['venue'].apply(lambda x: x.split(',')[-1].strip())
-#mean_attendance_by_country = other_country.groupby('country_venue')['attendance'].mean().sort_values(ascending=False).head(10).reset_index()
-#st.subheader("Mean Attendance by Country Venue (Top 10)")
-#st.plotly_chart(fig)
+#...
 
 # Wins vs Losses Scatter Plot
 st.subheader("Wins vs Losses Scatter Plot by Team")
