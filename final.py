@@ -45,7 +45,7 @@ all_time['trophies'] = all_time['trophies'].fillna(0).astype(int)
 
 # Load and display an image for the selected team
 team_images = {
-    "Liverpool FC": "liverpool.jpg",
+    "Liverpool FC": "liverpool.png",
     "Manchester United": "man-u.png",
     "Real Madrid": "RM.png",
     "FC Barcelona": "barca.jpg",
