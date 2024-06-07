@@ -126,20 +126,20 @@ st.plotly_chart(fig)
 
 
 # Mean Attendance per Decade
-bins = [1960, 1970, 1980, 1990, 2000, 2010, 2020, 2030]
-labels = ['1960s', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s']
-finals['decade'] = pd.cut(finals['year'], bins=bins, labels=labels, right=False)
-mean_attendance_per_decade = finals.groupby('decade')['attendance'].mean().reset_index()
-heatmap_data = mean_attendance_per_decade.set_index('decade').T
+#bins = [1960, 1970, 1980, 1990, 2000, 2010, 2020, 2030]
+#labels = ['1960s', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s']
+#finals['decade'] = pd.cut(finals['year'], bins=bins, labels=labels, right=False)
+#mean_attendance_per_decade = finals.groupby('decade')['attendance'].mean().reset_index()
+#heatmap_data = mean_attendance_per_decade.set_index('decade').T
 
 # Mean Attendance per Decade
-st.subheader("Mean Attendance per Decade")
-fig, ax = plt.subplots(figsize=(10, 2))
-sns.heatmap(heatmap_data, annot=True, fmt=".3f", cmap="YlGnBu", cbar=True, cbar_kws={'orientation': 'horizontal'}, ax=ax)
-ax.set_title('Mean Attendance per Decade')
-ax.set_xlabel('Decade')
-ax.set_ylabel('')
-st.pyplot(fig)
+#st.subheader("Mean Attendance per Decade")
+#fig, ax = plt.subplots(figsize=(10, 2))
+#sns.heatmap(heatmap_data, annot=True, fmt=".3f", cmap="YlGnBu", cbar=True, cbar_kws={'orientation': 'horizontal'}, ax=ax)
+#ax.set_title('Mean Attendance per Decade')
+#ax.set_xlabel('Decade')
+#ax.set_ylabel('')
+#st.pyplot(fig)
 
 # Same Country Influence on Attendance
 #finals['same_country'] = finals.apply(lambda row: 1 if row['country_winners'] in row['venue'] or row['country_runners_up'] in row['venue'] else 0, axis=1)
