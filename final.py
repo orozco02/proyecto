@@ -10,8 +10,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
 # Load the data
-all_time = pd.read_csv("../data/raw/UCL_AllTime_Performance_Table.csv")
-finals = pd.read_csv("../data/raw/UCL_Finals_1955-2023.csv")
+all_time = pd.read_csv("UCL_AllTime_Performance_Table.csv")
+finals = pd.read_csv("UCL_Finals_1955-2023.csv")
 
 # Clean and prepare the data
 def to_snake_case(column_name):
