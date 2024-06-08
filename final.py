@@ -108,7 +108,6 @@ st.sidebar.write(f"- **Empates:** {team_info['draws']}")
 st.sidebar.write(f"- **Derrotas:** {team_info['losses']}")
 st.sidebar.write(f"- **Goles:** {team_info['goals']}")
 st.sidebar.write(f"- **Diferencia de Goles:** {team_info['goal_difference']}")
-st.sidebar.write(f"- **Puntos:** {team_info['points']}")
 trophies = len(finals[finals['winners'] == selected_team])
 st.sidebar.write(f"- **Títulos:** {trophies}")
 
