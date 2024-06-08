@@ -223,6 +223,9 @@ if st.sidebar.button("Predict Winner"):
     if "Line Chart" in visualization_options:
         # Line Chart
         st.subheader(f"Line Chart: {team1} vs {team2}")
+        categories = ['wins', 'losses', 'draws', 'goals', 'goal_difference']
+        team1_values = team1_data.values.tolist()
+        team2_values = team2_data.values.tolist()
         line_data = pd.DataFrame({
             'Category': categories,
             team1: team1_values,
@@ -236,6 +239,9 @@ if st.sidebar.button("Predict Winner"):
     if "Scatter Plot" in visualization_options:
         # Scatter Plot
         st.subheader(f"Scatter Plot: {team1} vs {team2}")
+        categories = ['wins', 'losses', 'draws', 'goals', 'goal_difference']
+        team1_values = team1_data.values.tolist()
+        team2_values = team2_data.values.tolist()
         scatter_data = pd.DataFrame({
             'Category': categories * 2,
             'Values': team1_values + team2_values,
@@ -252,6 +258,9 @@ if st.sidebar.button("Predict Winner"):
     if "Heatmap" in visualization_options:
         # Heatmap
         st.subheader(f"Heatmap: {team1} vs {team2}")
+        categories = ['wins', 'losses', 'draws', 'goals', 'goal_difference']
+        team1_values = team1_data.values.tolist()
+        team2_values = team2_data.values.tolist()
         heatmap_data = pd.DataFrame({
             team1: team1_values,
             team2: team2_values
@@ -266,3 +275,4 @@ if st.sidebar.button("Predict Winner"):
 
         fig.update_layout(title='Performance Heatmap', xaxis_title='Team', yaxis_title='Category')
         st.plotly_chart(fig)
+
