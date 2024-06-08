@@ -159,6 +159,9 @@ st.sidebar.subheader("Binary Classification Model")
 team1 = st.sidebar.selectbox("Select Team 1", teams)
 team2 = st.sidebar.selectbox("Select Team 2", teams)
 
+# Define the visualization options
+visualization_options = st.sidebar.multiselect("Select Visualization", ["Radar Chart", "Line Chart", "Scatter Plot", "Heatmap"])
+
 if st.sidebar.button("Predict Winner"):
     # Data Preparation
     team1_data = all_time[all_time['team'] == team1].squeeze()[['wins', 'losses', 'draws', 'goals', 'goal_difference']].astype(float)
@@ -179,82 +182,87 @@ if st.sidebar.button("Predict Winner"):
     # Display prediction
     st.sidebar.write(f"Prediction: The winner is {winning_team}")
 
-    # Radar Chart
-    st.subheader(f"Performance Comparison: {team1} vs {team2}")
-    categories = ['wins', 'losses', 'draws', 'goals', 'goal_difference']
-    team1_values = team1_data.values.tolist()
-    team2_values = team2_data.values.tolist()
+    # Display selected visualizations
+    if "Radar Chart" in visualization_options:
+        # Radar Chart
+        st.subheader(f"Performance Comparison: {team1} vs {team2}")
+        categories = ['wins', 'losses', 'draws', 'goals', 'goal_difference']
+        team1_values = team1_data.values.tolist()
+        team2_values = team2_data.values.tolist()
 
-    fig = go.Figure()
+        fig = go.Figure()
 
-    fig.add_trace(go.Scatterpolar(
-        r=team1_values,
-        theta=categories,
-        fill='toself',
-        name=team1,
-        line=dict(color='black')
-    ))
-    fig.add_trace(go.Scatterpolar(
-        r=team2_values,
-        theta=categories,
-        fill='toself',
-        name=team2,
-        line=dict(color='red')
-    ))
+        fig.add_trace(go.Scatterpolar(
+            r=team1_values,
+            theta=categories,
+            fill='toself',
+            name=team1,
+            line=dict(color='black')
+        ))
+        fig.add_trace(go.Scatterpolar(
+            r=team2_values,
+            theta=categories,
+            fill='toself',
+            name=team2,
+            line=dict(color='red')
+        ))
 
-    max_value = max(max(map(float, team1_values)), max(map(float, team2_values)))
+        max_value = max(max(map(float, team1_values)), max(map(float, team2_values)))
 
-    fig.update_layout(
-        polar=dict(
-            radialaxis=dict(
-                visible=True,
-                range=[0, max_value]
-            )),
-        showlegend=True
-    )
+        fig.update_layout(
+            polar=dict(
+                radialaxis=dict(
+                    visible=True,
+                    range=[0, max_value]
+                )),
+            showlegend=True
+        )
 
-    st.plotly_chart(fig)
+        st.plotly_chart(fig)
 
-    # Line Chart
-    st.subheader(f"Line Chart: {team1} vs {team2}")
-    line_data = pd.DataFrame({
-        'Category': categories,
-        team1: team1_values,
-        team2: team2_values
-    })
+    if "Line Chart" in visualization_options:
+        # Line Chart
+        st.subheader(f"Line Chart: {team1} vs {team2}")
+        line_data = pd.DataFrame({
+            'Category': categories,
+            team1: team1_values,
+            team2: team2_values
+        })
 
-    fig = px.line(line_data, x='Category', y=[team1, team2], markers=True, color_discrete_map={team1: 'black', team2: 'red'})
-    fig.update_layout(title='Performance Line Chart', xaxis_title='Category', yaxis_title='Values')
-    st.plotly_chart(fig)
+        fig = px.line(line_data, x='Category', y=[team1, team2], markers=True, color_discrete_map={team1: 'black', team2: 'red'})
+        fig.update_layout(title='Performance Line Chart', xaxis_title='Category', yaxis_title='Values')
+        st.plotly_chart(fig)
 
-    # Scatter Plot
-    st.subheader(f"Scatter Plot: {team1} vs {team2}")
-    scatter_data = pd.DataFrame({
-        'Category': categories * 2,
-        'Values': team1_values + team2_values,
-        'Team': [team1] * len(categories) + [team2] * len(categories)
-    })
+    if "Scatter Plot" in visualization_options:
+        # Scatter Plot
+        st.subheader(f"Scatter Plot: {team1} vs {team2}")
+        scatter_data = pd.DataFrame({
+            'Category': categories * 2,
+            'Values': team1_values + team2_values,
+            'Team': [team1] * len(categories) + [team2] * len(categories)
+        })
 
-    # Filtrar valores negativos en la columna 'Values'
-    scatter_data = scatter_data[scatter_data['Values'] > 0]
+        # Filtrar valores negativos en la columna 'Values'
+        scatter_data = scatter_data[scatter_data['Values'] > 0]
 
-    fig = px.scatter(scatter_data, x='Category', y='Values', color='Team', symbol='Team', size='Values', color_discrete_map={team1: 'black', team2: 'red'})
-    fig.update_layout(title='Performance Scatter Plot', xaxis_title='Category', yaxis_title='Values')
-    st.plotly_chart(fig)
+        fig = px.scatter(scatter_data, x='Category', y='Values', color='Team', symbol='Team', size='Values', color_discrete_map={team1: 'black', team2: 'red'})
+        fig.update_layout(title='Performance Scatter Plot', xaxis_title='Category', yaxis_title='Values')
+        st.plotly_chart(fig)
 
-    # Heatmap
-    st.subheader(f"Heatmap: {team1} vs {team2}")
-    heatmap_data = pd.DataFrame({
-        team1: team1_values,
-        team2: team2_values
-    }, index=categories)
+    if "Heatmap" in visualization_options:
+        # Heatmap
+        st.subheader(f"Heatmap: {team1} vs {team2}")
+        heatmap_data = pd.DataFrame({
+            team1: team1_values,
+            team2: team2_values
+        }, index=categories)
 
-    fig = go.Figure(data=go.Heatmap(
-        z=heatmap_data.values,
-        x=heatmap_data.columns,
-        y=heatmap_data.index,
-        colorscale='Viridis'
-    ))
+        fig = go.Figure(data=go.Heatmap(
+            z=heatmap_data.values,
+            x=heatmap_data.columns,
+            y=heatmap_data.index,
+            colorscale='Viridis'
+        ))
 
-    fig.update_layout(title='Performance Heatmap', xaxis_title='Team', yaxis_title='Category')
-    st.plotly_chart(fig)
+        fig.update_layout(title='Performance Heatmap', xaxis_title='Team', yaxis_title='Category')
+        st.plotly_chart(fig)
